@@ -57,20 +57,19 @@ namespace om636
             template<typename V, typename W>
             static void process_and_kill( const batch_type &, V, W );
             
-            static void process( const batch_type & );
+            void process( const batch_type & );
             
             template<typename V>
-            static void process( const batch_type &, V );
+            void process( const batch_type &, V );
             
             template<typename V, typename W>
-            static void process( const batch_type &, V, W );
+            void process( const batch_type &, V, W );
             
             static void kill_all(batch_type &);
             
-            batch_type add_elements();
+            batch_type elements();
            
 			batch_type m_elements;
-			batch_type m_elements_add;
 		};
 	}	//control
 }	// om636

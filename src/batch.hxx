@@ -7,7 +7,7 @@ namespace om636
 		auto Batch<T>::hook( callback_type c ) -> listener_type
 		{
             pointer_type agent( new agent_type( c ) );
-            m_elements_add.insert( agent );
+            m_elements.insert( agent );
 			return listener_type( agent );
         }
         
@@ -16,14 +16,13 @@ namespace om636
 		void Batch<T>::unhook()
 		{
             kill_all( m_elements );
-            kill_all( m_elements_add );
         }
         
 		/////////////////////////////////////////////////////////////////////////////////////
 		template<typename T>
 		void Batch<T>::traverse()
 		{
-            batch_type copy( add_elements() );
+            batch_type copy( elements() );
             process( copy );
         }
         
@@ -32,7 +31,7 @@ namespace om636
 		template<class V>
 		void Batch<T>::traverse(V arg)
 		{
-            batch_type copy( add_elements() );
+            batch_type copy( elements() );
             process( copy, arg );
         }
         
@@ -41,7 +40,7 @@ namespace om636
 		template<typename V, typename W>
 		void Batch<T>::traverse(V first_arg, W second_arg )
 		{
-            batch_type copy( add_elements() );
+            batch_type copy( elements() );
             process( copy, first_arg, second_arg );
         }
         
@@ -49,7 +48,7 @@ namespace om636
         template<typename T>
         void Batch<T>::traverse_destructive()
         {
-            batch_type copy( add_elements() );
+            batch_type copy( elements() );
             process_and_kill( copy );
             m_elements.clear();
         }
@@ -59,7 +58,7 @@ namespace om636
         template<class V>
         void Batch<T>::traverse_destructive(V arg)
         {
-            batch_type copy( add_elements() );
+            batch_type copy( elements() );
             process_and_kill( copy, arg );
             m_elements.clear();
         }
@@ -69,7 +68,7 @@ namespace om636
         template<typename V, typename W>
         void Batch<T>::traverse_destructive(V first_arg, W second_arg )
         {
-            batch_type copy( add_elements() );
+            batch_type copy( elements() );
             process_and_kill( copy, first_arg, second_arg );
             m_elements.clear();
         }
@@ -78,9 +77,12 @@ namespace om636
 		template<typename T>
         void Batch<T>::process( const batch_type & batch )
         {
-            for_each( batch.begin(), batch.end(), [](pointer_type p) {
+            for_each( batch.begin(), batch.end(), [&](pointer_type p) {
                 if (!p->is_dead())
+                {
+                    m_elements.insert(p);
                     p->invoke();
+                }
             } );
         }
         
@@ -91,7 +93,10 @@ namespace om636
         {
             for_each( batch.begin(), batch.end(), [&](pointer_type p) {
                 if (!p->is_dead())
+                {
+                    m_elements.insert(p);
                     p->invoke(v);
+                }
             } );
         }
         
@@ -102,7 +107,10 @@ namespace om636
         {
             for_each( batch.begin(), batch.end(), [&](pointer_type p) {
                 if (!p->is_dead())
+                {
+                    m_elements.insert(p);
                     p->invoke(v, w);
+                }
             } );
         }
         
@@ -123,7 +131,7 @@ namespace om636
         {
             for_each( batch.begin(), batch.end(), [&](pointer_type p) {
                 if (!p->is_dead())
-                    p->kill_invoke(v);
+                   p->kill_invoke(v);
             } );
         }
         
@@ -140,11 +148,11 @@ namespace om636
         
         /////////////////////////////////////////////////////////////////////////////////////
 		template<typename T>
-        auto Batch<T>::add_elements() -> batch_type
+        auto Batch<T>::elements() -> batch_type
         {
-            m_elements.insert( m_elements_add.begin(), m_elements_add.end() );
-            m_elements_add.clear();
-            return m_elements;
+            batch_type result;
+            result.swap(m_elements);
+            return result;
         }
         
         /////////////////////////////////////////////////////////////////////////////////////

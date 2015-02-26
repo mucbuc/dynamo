@@ -5,14 +5,15 @@ void check_traverse()
 {
 	typedef std::function<void()> callback_type;
 	control::Batch<callback_type> batch;
-	bool passed(0);
+	unsigned passed(0);
 
 	auto temp(batch.hook( [&](){
-		passed = 1;
+		++passed;
 	} ) );
 
 	batch.traverse();	
+	batch.traverse();	
 
-	ASSERT( passed );
+	ASSERT( passed == 2 );
 	FOOTER;
 }
