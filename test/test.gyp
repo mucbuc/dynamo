@@ -9,6 +9,7 @@
 		'type': 'executable',
 		'sources': [
 			'src/main.cpp',
+			'src/batch.h'
 		], #sources
 		'include_dirs': [
 			'plank/src/',

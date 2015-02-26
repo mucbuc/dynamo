@@ -43,18 +43,15 @@ namespace om636
 		{
             batch_type copy( add_elements() );
             process( copy, first_arg, second_arg );
-
-            //batch_type repeats( m_repeat[ e ] ); //<== bug, not passing args: write test case
-            //process( repeats );
         }
         
-
         /////////////////////////////////////////////////////////////////////////////////////
         template<typename T>
         void Batch<T>::traverse_destructive()
         {
             batch_type copy( add_elements() );
             process_and_kill( copy );
+            m_elements.clear();
         }
         
         /////////////////////////////////////////////////////////////////////////////////////
@@ -64,6 +61,7 @@ namespace om636
         {
             batch_type copy( add_elements() );
             process_and_kill( copy, arg );
+            m_elements.clear();
         }
         
         /////////////////////////////////////////////////////////////////////////////////////
@@ -73,6 +71,7 @@ namespace om636
         {
             batch_type copy( add_elements() );
             process_and_kill( copy, first_arg, second_arg );
+            m_elements.clear();
         }
 
         /////////////////////////////////////////////////////////////////////////////////////
