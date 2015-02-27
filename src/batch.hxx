@@ -80,8 +80,8 @@ namespace om636
             for_each( batch.begin(), batch.end(), [&](pointer_type p) {
                 if (!p->is_dead())
                 {
-                    m_elements.insert(p);
                     p->invoke();
+                    m_elements.insert(p);
                 }
             } );
         }

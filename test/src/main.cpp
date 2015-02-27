@@ -9,6 +9,7 @@
 
 int main(int argc, const char * argv[])
 {
-	check_traverse();
+    check_traverse();
+	check_traverse_while_traverse();
 	return 0;
 }
