@@ -46,13 +46,13 @@ namespace om636
 			template<typename V, typename W> 
 			void traverse_destructive( V, W );
             
-		    static void process_and_kill( batch_type );
+		    static void process_and_kill( batch_type & );
             
             template<typename V>
-            static void process_and_kill( batch_type, V );
+            static void process_and_kill( batch_type &, V );
             
             template<typename V, typename W>
-            static void process_and_kill( batch_type, V, W );
+            static void process_and_kill( batch_type &, V, W );
             
             static batch_type process( batch_type );
             

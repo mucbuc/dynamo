@@ -55,6 +55,8 @@ namespace om636
         template<typename T>
         void Batch<T>::traverse_destructive()
         {
+            merge_new_elements();
+
             process_and_kill( elements() );
         }
         
@@ -63,6 +65,8 @@ namespace om636
         template<class V>
         void Batch<T>::traverse_destructive(V arg)
         {
+            merge_new_elements();
+
             process_and_kill( elements(), arg );
         }
         
@@ -71,6 +75,8 @@ namespace om636
         template<typename V, typename W>
         void Batch<T>::traverse_destructive(V first_arg, W second_arg )
         {
+            merge_new_elements();
+
             process_and_kill( elements(), first_arg, second_arg );
         }
 
@@ -120,34 +126,40 @@ namespace om636
         
         /////////////////////////////////////////////////////////////////////////////////////
 		template<typename T>
-        void Batch<T>::process_and_kill( batch_type batch )
+        void Batch<T>::process_and_kill( batch_type & batch )
         {
-            for_each( batch.begin(), batch.end(), [](pointer_type p) {
+            batch_type copy(batch);
+            for_each( copy.begin(), copy.end(), [](pointer_type p) {
                 if (!p->is_dead())
                     p->kill_invoke();
             } );
+            batch.clear();
         }
         
         /////////////////////////////////////////////////////////////////////////////////////
 		template<typename T>
         template<typename V>
-        void Batch<T>::process_and_kill( batch_type batch, V v )
+        void Batch<T>::process_and_kill( batch_type & batch, V v )
         {
-            for_each( batch.begin(), batch.end(), [&](pointer_type p) {
+            batch_type copy(batch);
+            for_each( copy.begin(), copy.end(), [&](pointer_type p) {
                 if (!p->is_dead())
                    p->kill_invoke(v);
             } );
+            batch.clear();
         }
         
         /////////////////////////////////////////////////////////////////////////////////////
 		template<typename T>
         template<typename V, typename W>
-        void Batch<T>::process_and_kill( batch_type batch, V v, W w )
+        void Batch<T>::process_and_kill( batch_type & batch, V v, W w )
         {
-            for_each( batch.begin(), batch.end(), [&](pointer_type p) {
+            batch_type copy(batch);
+            for_each( copy.begin(), copy.end(), [&](pointer_type p) {
                 if (!p->is_dead())
                     p->kill_invoke(v, w);
             } );
+            batch.clear();
         }
         
         /////////////////////////////////////////////////////////////////////////////////////
