@@ -7,7 +7,7 @@ namespace om636
 		auto Batch<T>::hook( callback_type c ) -> listener_type
 		{
             pointer_type agent( new agent_type( c ) );
-            m_elements.insert( agent );
+            elements().insert( agent );
 			return listener_type( agent );
         }
         
@@ -15,7 +15,7 @@ namespace om636
 		template<typename T>
 		void Batch<T>::unhook()
 		{
-            kill_all( m_elements );
+            kill_all( elements() );
         }
         
 		/////////////////////////////////////////////////////////////////////////////////////
