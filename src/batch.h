@@ -45,7 +45,7 @@ namespace om636
 			template<typename V, typename W> 
 			void traverse_destructive( V, W );
             
-		private:
+		protected:
 
             typedef std::multiset< pointer_type > batch_type;
 			
@@ -57,18 +57,20 @@ namespace om636
             template<typename V, typename W>
             static void process_and_kill( const batch_type &, V, W );
             
-            void process( const batch_type & );
+            batch_type process( const batch_type & );
             
             template<typename V>
-            void process( const batch_type &, V );
+            batch_type process( const batch_type &, V );
             
             template<typename V, typename W>
-            void process( const batch_type &, V, W );
+            batch_type process( const batch_type &, V, W );
             
             static void kill_all(batch_type &);
             
-            batch_type elements();
-           
+            batch_type & elements();
+           	const batch_type & elements() const;
+
+        private:
 			batch_type m_elements;
 		};
 	}	//control
