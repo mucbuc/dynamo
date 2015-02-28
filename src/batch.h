@@ -21,7 +21,8 @@ namespace om636
 			typedef Agent< callback_type > agent_type;
             typedef std::shared_ptr< agent_type > pointer_type;
             typedef Listener< pointer_type > listener_type;
-
+            typedef std::multiset< pointer_type > batch_type;
+		
 			Batch() = default;
 			virtual ~Batch() = default;
             Batch(const Batch &) = delete;
@@ -45,11 +46,7 @@ namespace om636
 			template<typename V, typename W> 
 			void traverse_destructive( V, W );
             
-		protected:
-
-            typedef std::multiset< pointer_type > batch_type;
-			
-            static void process_and_kill( const batch_type & );
+		    static void process_and_kill( const batch_type & );
             
             template<typename V>
             static void process_and_kill( const batch_type &, V );
@@ -57,13 +54,13 @@ namespace om636
             template<typename V, typename W>
             static void process_and_kill( const batch_type &, V, W );
             
-            batch_type process( const batch_type & );
+            static batch_type process( const batch_type & );
             
             template<typename V>
-            batch_type process( const batch_type &, V );
+            static batch_type process( const batch_type &, V );
             
             template<typename V, typename W>
-            batch_type process( const batch_type &, V, W );
+            static batch_type process( const batch_type &, V, W );
             
             static void kill_all(batch_type &);
             
