@@ -105,8 +105,8 @@ namespace om636
     		template<typename T>
             void process( T & elements ) 
             {
-                batch_type copy(elements);
-                for_each( copy.begin(), copy.end(), [&](pointer_type p) {
+                T copy(elements);
+                for_each( copy.begin(), copy.end(), [&](typename T::value_type p) {
                     if (!p->is_dead())
                         p->invoke();
                     else
@@ -115,12 +115,11 @@ namespace om636
             }
             
             /////////////////////////////////////////////////////////////////////////////////////
-    		template<typename T>
-            template<typename V>
+    		template<typename T, typename V>
             void process( T & elements, V v )
             {
-                batch_type copy(elements);
-                for_each( copy.begin(), copy.end(), [&](pointer_type p) {
+                T copy(elements);
+                for_each( copy.begin(), copy.end(), [&](typename T::value_type p) {
                     if (!p->is_dead())
                         p->invoke(v);
                     else
@@ -129,12 +128,11 @@ namespace om636
             }
             
             /////////////////////////////////////////////////////////////////////////////////////
-    		template<typename T>
-            template<typename V, typename W>
+    		template<typename T, typename V, typename W>
             void process( T & elements, V v, W w )
             {
-                batch_type copy(elements);
-                for_each( copy.begin(), copy.end(), [&](pointer_type p) {
+                T copy(elements);
+                for_each( copy.begin(), copy.end(), [&](typename T::value_type p) {
                     if (!p->is_dead())
                         p->invoke(v, w);
                     else
@@ -146,8 +144,8 @@ namespace om636
     		template<typename T>
             void process_and_kill( T & elements )
             {
-                batch_type copy(elements);
-                for_each( copy.begin(), copy.end(), [](pointer_type p) {
+                T copy(elements);
+                for_each( copy.begin(), copy.end(), [](typename T::value_type p) {
                     if (!p->is_dead())
                         p->kill_invoke();
                 } );
@@ -155,12 +153,11 @@ namespace om636
             }
             
             /////////////////////////////////////////////////////////////////////////////////////
-    		template<typename T>
-            template<typename V>
+    		template<typename T, typename V>
             void process_and_kill( T & elements, V v )
             {
-                batch_type copy(elements);
-                for_each( copy.begin(), copy.end(), [&](pointer_type p) {
+                T copy(elements);
+                for_each( copy.begin(), copy.end(), [&](typename T::value_type p) {
                     if (!p->is_dead())
                        p->kill_invoke(v);
                 } );
@@ -168,12 +165,11 @@ namespace om636
             }
             
             /////////////////////////////////////////////////////////////////////////////////////
-    		template<typename T>
-            template<typename V, typename W>
+    		template<typename T, typename V, typename W>
             void process_and_kill( T & elements, V v, W w )
             {
-                batch_type copy(elements);
-                for_each( copy.begin(), copy.end(), [&](pointer_type p) {
+                T copy(elements);
+                for_each( copy.begin(), copy.end(), [&](typename T::value_type p) {
                     if (!p->is_dead())
                         p->kill_invoke(v, w);
                 } );
@@ -184,7 +180,7 @@ namespace om636
             template<typename T>
             void kill_all(T & elements)
             {
-                for_each( elements.begin(), elements.end(), [](pointer_type p) {
+                for_each( elements.begin(), elements.end(), [](typename T::value_type p) {
                     p->kill();
                 } );
                 elements.clear();

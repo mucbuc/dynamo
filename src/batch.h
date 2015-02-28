@@ -61,29 +61,25 @@ namespace om636
 		{
 
 			template<typename T>
-			void process_and_kill( batch_type & );
+			void process_and_kill( T & );
 		        
-		    template<typename T>
-			template<typename V>
-		    void process_and_kill( batch_type &, V );
+		    template<typename T, typename V>
+		    void process_and_kill( T &, V );
+		    
+		    template<typename T, typename V, typename W>
+		    void process_and_kill( T &, V, W );
 		    
 		    template<typename T>
-			template<typename V, typename W>
-		    void process_and_kill( batch_type &, V, W );
+			void process( T & );
+		    
+		    template<typename T, typename V>
+		    void process( T &, V );
+		    
+		    template<typename T, typename V, typename W>
+		    void process( T &, V, W );
 		    
 		    template<typename T>
-			void process( batch_type & );
-		    
-		    template<typename T>
-			template<typename V>
-		    void process( batch_type &, V );
-		    
-		    template<typename T>
-			template<typename V, typename W>
-		    void process( batch_type &, V, W );
-		    
-		    template<typename T>
-			void kill_all(batch_type &);
+			void kill_all(T &);
 		}
 
 	}	//control
