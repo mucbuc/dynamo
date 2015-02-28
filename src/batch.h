@@ -46,21 +46,21 @@ namespace om636
 			template<typename V, typename W> 
 			void traverse_destructive( V, W );
             
-		    static void process_and_kill( const batch_type & );
+		    static void process_and_kill( batch_type );
             
             template<typename V>
-            static void process_and_kill( const batch_type &, V );
+            static void process_and_kill( batch_type, V );
             
             template<typename V, typename W>
-            static void process_and_kill( const batch_type &, V, W );
+            static void process_and_kill( batch_type, V, W );
             
-            static batch_type process( const batch_type & );
+            static batch_type process( batch_type );
             
             template<typename V>
-            static batch_type process( const batch_type &, V );
+            static batch_type process( batch_type, V );
             
             template<typename V, typename W>
-            static batch_type process( const batch_type &, V, W );
+            static batch_type process( batch_type, V, W );
             
             static void kill_all(batch_type &);
             
@@ -68,7 +68,11 @@ namespace om636
            	const batch_type & elements() const;
 
         private:
+
+        	void merge_new_elements();
+
 			batch_type m_elements;
+			batch_type m_elements_add;
 		};
 	}	//control
 }	// om636

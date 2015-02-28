@@ -7,7 +7,7 @@ namespace om636
 		auto Batch<T>::hook( callback_type c ) -> listener_type
 		{
             pointer_type agent( new agent_type( c ) );
-            elements().insert( agent );
+            m_elements_add.insert( agent );
 			return listener_type( agent );
         }
         
@@ -16,15 +16,17 @@ namespace om636
 		void Batch<T>::unhook()
 		{
             kill_all( elements() );
+            kill_all( m_elements_add );
         }
         
 		/////////////////////////////////////////////////////////////////////////////////////
 		template<typename T>
 		void Batch<T>::traverse()
 		{
-            batch_type copy;
-            copy.swap( elements() );
-            elements() = process( copy );
+            merge_new_elements();
+
+            const batch_type & sub( process( elements() ) );
+            elements().erase( sub.begin(), sub.end() );
         }
         
 		/////////////////////////////////////////////////////////////////////////////////////
@@ -32,9 +34,10 @@ namespace om636
 		template<class V>
 		void Batch<T>::traverse(V arg)
 		{
-            batch_type copy;
-            copy.swap( elements() );
-            elements() = process( copy, arg );
+            merge_new_elements();
+
+            const batch_type & sub( process( elements(), arg ) );
+            elements().erase( sub.begin(), sub.end() );
         }
         
 		/////////////////////////////////////////////////////////////////////////////////////
@@ -42,18 +45,17 @@ namespace om636
 		template<typename V, typename W>
 		void Batch<T>::traverse(V first_arg, W second_arg )
 		{
-            batch_type copy;
-            copy.swap( elements() );
-            elements() = process( copy, first_arg, second_arg );
+            merge_new_elements();
+
+            const batch_type & sub( process( elements(), first_arg, second_arg ) );
+            elements().erase( sub.begin(), sub.end() );
         }
         
         /////////////////////////////////////////////////////////////////////////////////////
         template<typename T>
         void Batch<T>::traverse_destructive()
         {
-            batch_type copy;
-            copy.swap( elements() );
-            process_and_kill( copy );
+            process_and_kill( elements() );
         }
         
         /////////////////////////////////////////////////////////////////////////////////////
@@ -61,9 +63,7 @@ namespace om636
         template<class V>
         void Batch<T>::traverse_destructive(V arg)
         {
-            batch_type copy;
-            copy.swap( elements() );
-            process_and_kill( copy, arg );
+            process_and_kill( elements(), arg );
         }
         
         /////////////////////////////////////////////////////////////////////////////////////
@@ -71,22 +71,19 @@ namespace om636
         template<typename V, typename W>
         void Batch<T>::traverse_destructive(V first_arg, W second_arg )
         {
-            batch_type copy;
-            copy.swap( elements() );
-            process_and_kill( copy, first_arg, second_arg );
+            process_and_kill( elements(), first_arg, second_arg );
         }
 
         /////////////////////////////////////////////////////////////////////////////////////
 		template<typename T>
-        auto Batch<T>::process( const batch_type & batch ) -> batch_type 
+        auto Batch<T>::process( batch_type batch ) -> batch_type 
         {
             batch_type result;
             for_each( batch.begin(), batch.end(), [&](pointer_type p) {
                 if (!p->is_dead())
-                {
                     p->invoke();
+                else
                     result.insert(p);
-                }
             } );
             return result;
         }
@@ -94,15 +91,14 @@ namespace om636
         /////////////////////////////////////////////////////////////////////////////////////
 		template<typename T>
         template<typename V>
-        auto Batch<T>::process( const batch_type & batch, V v ) -> batch_type
+        auto Batch<T>::process( batch_type batch, V v ) -> batch_type
         {
             batch_type result;
             for_each( batch.begin(), batch.end(), [&](pointer_type p) {
                 if (!p->is_dead())
-                {
                     p->invoke(v);
+                else
                     result.insert(p);
-                }
             } );
             return result;
         }
@@ -110,22 +106,21 @@ namespace om636
         /////////////////////////////////////////////////////////////////////////////////////
 		template<typename T>
         template<typename V, typename W>
-        auto Batch<T>::process( const batch_type & batch, V v, W w ) -> batch_type
+        auto Batch<T>::process( batch_type batch, V v, W w ) -> batch_type
         {
             batch_type result;
             for_each( batch.begin(), batch.end(), [&](pointer_type p) {
                 if (!p->is_dead())
-                {
                     p->invoke(v, w);
+                else
                     result.insert(p);
-                }
             } );
             return result;
         }
         
         /////////////////////////////////////////////////////////////////////////////////////
 		template<typename T>
-        void Batch<T>::process_and_kill( const batch_type & batch )
+        void Batch<T>::process_and_kill( batch_type batch )
         {
             for_each( batch.begin(), batch.end(), [](pointer_type p) {
                 if (!p->is_dead())
@@ -136,7 +131,7 @@ namespace om636
         /////////////////////////////////////////////////////////////////////////////////////
 		template<typename T>
         template<typename V>
-        void Batch<T>::process_and_kill( const batch_type & batch, V v )
+        void Batch<T>::process_and_kill( batch_type batch, V v )
         {
             for_each( batch.begin(), batch.end(), [&](pointer_type p) {
                 if (!p->is_dead())
@@ -147,7 +142,7 @@ namespace om636
         /////////////////////////////////////////////////////////////////////////////////////
 		template<typename T>
         template<typename V, typename W>
-        void Batch<T>::process_and_kill( const batch_type & batch, V v, W w )
+        void Batch<T>::process_and_kill( batch_type batch, V v, W w )
         {
             for_each( batch.begin(), batch.end(), [&](pointer_type p) {
                 if (!p->is_dead())
@@ -177,6 +172,14 @@ namespace om636
                 p->kill();
             } );
             batch.clear();
+        }
+
+        /////////////////////////////////////////////////////////////////////////////////////
+        template<typename T>
+        void Batch<T>::merge_new_elements()
+        {
+            elements().insert(m_elements_add.begin(), m_elements_add.end() );
+            m_elements_add.clear();
         }
         
     } 	// control 
