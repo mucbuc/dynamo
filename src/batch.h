@@ -1,6 +1,7 @@
 #ifndef BATCH_H__iFZqmDoIwhGaYO3df4xe5LCQXrbBvj
 #define BATCH_H__iFZqmDoIwhGaYO3df4xe5LCQXrbBvj
 
+#include <algorithm>
 #include <map>
 #include <memory>
 #include <set>
