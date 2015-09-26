@@ -1,7 +1,7 @@
 #include <iostream>
 #include <functional>
 
-#include <plank/src/test.h>
+#include "test.h"
 
 #include <lib/dynamo/src/batch.h>
 
