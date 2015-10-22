@@ -3,7 +3,7 @@
 		"lib/dynamo/def.json"
 	],
 	"sources": [
-		"src/main.cpp"
+		"src/main.cpp",
 		"src/batch.h"
 	]
 }
