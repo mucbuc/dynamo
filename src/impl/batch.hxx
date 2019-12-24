@@ -64,13 +64,14 @@ namespace control {
         void process(T& elements, V... v)
         {
             T copy(elements);
-            for_each(copy.begin(), copy.end(), [&](typename T::value_type p) {
-                auto s(p.lock());
+            for(auto i = copy.begin(); i != copy.end(); ++i)
+	    {
+                auto s(i->lock());
                 if (s)
                     s->invoke(v...);
-                //else
-                //elements.erase(p);
-            });
+                else
+                    elements.erase(i);
+            }
         }
 
         /////////////////////////////////////////////////////////////////////////////////////
@@ -78,12 +79,13 @@ namespace control {
         void process_and_kill(T& elements, V... v)
         {
             T copy(elements);
-            for_each(copy.begin(), copy.end(), [&](typename T::value_type p) {
-                auto s(p.lock());
+            elements.clear();
+	    for(auto i = copy.begin(); i != copy.end(); ++i)
+	    {
+                auto s(i->lock());
                 if (s)
                     s->kill_invoke(v...);
-            });
-            elements.clear();
+            }
         }
 
         /////////////////////////////////////////////////////////////////////////////////////

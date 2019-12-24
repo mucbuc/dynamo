@@ -2,6 +2,18 @@ using namespace om636;
 using namespace std;
 
 typedef control::BatchImpl<> batch_type;
+void dead_agent_removal()
+{
+    typedef control::BatchImpl<int> batch_type;
+    batch_type batch; 
+
+    batch.hook([&](int i) {
+    });
+ 
+    batch.invoke(9); 
+
+    ASSERT(batch.elements().empty() && "dead agent removal");
+}
 
 void check_traverse_with_arg()
 {

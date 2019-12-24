@@ -22,13 +22,13 @@ namespace control {
         void kill_invoke(T...) override;
         void kill() override;
 
-    private:
         typedef std::weak_ptr<typename agent_type::element_type> pointer_type;
         typedef std::vector<pointer_type> batch_type;
         batch_type& elements();
         const batch_type& elements() const;
-        void merge_added_elements();
 
+    private:
+        void merge_added_elements();
         batch_type m_elements;
         batch_type m_elements_add;
     };
