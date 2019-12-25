@@ -36,7 +36,7 @@ namespace control {
     namespace utils {
 
         template <typename T, typename... V>
-        void process_and_kill(T&, V...);
+        void process_and_kill(T&&, V...);
 
         template <typename T, typename... V>
         void process(T&, V...);

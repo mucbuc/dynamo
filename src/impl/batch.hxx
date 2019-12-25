@@ -24,7 +24,7 @@ namespace control {
     {
         merge_added_elements();
 
-        utils::process_and_kill(elements(), arg...);
+        utils::process_and_kill(std::move(m_elements), arg...);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////
@@ -76,10 +76,9 @@ namespace control {
 
         /////////////////////////////////////////////////////////////////////////////////////
         template <typename T, typename... V>
-        void process_and_kill(T& elements, V... v)
+        void process_and_kill(T&& elements, V... v)
         {
-            T copy(elements);
-            elements.clear();
+            T copy(std::move(elements));
 	    for(auto i = copy.begin(); i != copy.end(); ++i)
 	    {
                 auto s(i->lock());
