@@ -18,7 +18,7 @@ namespace control {
 
         ~BatchImpl() override = default;
         agent_type hook(function_type) override;
-        void invoke(T...) override;
+        bool invoke(T...) override;
         void kill_invoke(T...) override;
         void kill() override;
 
@@ -39,7 +39,7 @@ namespace control {
         void process_and_kill(T&&, V...);
 
         template <typename T, typename... V>
-        void process(T&, V...);
+        void process(T&&, V...);
 
         template <typename T>
         void kill_all(T&);

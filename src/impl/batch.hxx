@@ -11,22 +11,23 @@ namespace control {
 
     /////////////////////////////////////////////////////////////////////////////////////
     template <typename... T>
-    void BatchImpl<T...>::invoke(T... arg)
+    bool BatchImpl<T...>::invoke(T... arg)
     {
-        merge_added_elements();
-
-        utils::process(elements(), arg...);
+	merge_added_elements();
+	auto tmp = elements();
+        utils::process(std::move(m_elements), arg...);
+	m_elements_add.insert(m_elements_add.end(), tmp.begin(), tmp.end());
+        return true;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////
     template <typename... T>
     void BatchImpl<T...>::kill_invoke(T... arg)
     {
-        merge_added_elements();
-
+	merge_added_elements();
         utils::process_and_kill(std::move(m_elements), arg...);
     }
-
+ 
     /////////////////////////////////////////////////////////////////////////////////////
     template <typename... T>
     void BatchImpl<T...>::kill()
@@ -61,17 +62,20 @@ namespace control {
 
         /////////////////////////////////////////////////////////////////////////////////////
         template <typename T, typename... V>
-        void process(T& elements, V... v)
-        {
-            T copy(elements);
+        void process(T&& elements, V... v)
+        { 
+	    T removeElements;
+            T copy(std::move(elements));
             for(auto i = copy.begin(); i != copy.end(); ++i)
 	    {
                 auto s(i->lock());
-                if (s)
-                    s->invoke(v...);
-                else
-                    elements.erase(i);
-            }
+                if (s) {
+                    if (!s->invoke(v...))
+		    {
+//			removeElements.push_pack(s);
+		    }
+                }
+	    }
         }
 
         /////////////////////////////////////////////////////////////////////////////////////

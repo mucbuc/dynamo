@@ -13,11 +13,13 @@ namespace control {
 
     /////////////////////////////////////////////////////////////////////////////////////
     template <typename... T>
-    void shared_agent<T...>::invoke(T... args)
+    bool shared_agent<T...>::invoke(T... args)
     {
         if (!is_dead()) {
             m_callback(args...);
-        }
+	    return !is_dead();
+	}
+        return false;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////

@@ -14,7 +14,7 @@ namespace control {
 
         ~shared_agent() override = default;
 
-        void invoke(T...) override;
+        bool invoke(T...) override;
         void kill_invoke(T...) override;
         void kill() override;
 
