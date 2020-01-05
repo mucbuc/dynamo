@@ -18,9 +18,10 @@ namespace control {
 
         ~BatchImpl() override = default;
         agent_type hook(function_type) override;
-        bool invoke(T...) override;
+        void invoke(T...) override;
         void kill_invoke(T...) override;
         void kill() override;
+	bool is_dead() const override;
 
         typedef std::weak_ptr<typename agent_type::element_type> pointer_type;
         typedef std::vector<pointer_type> batch_type;
@@ -28,9 +29,8 @@ namespace control {
         const batch_type& elements() const;
 
     private:
-        void merge_added_elements();
         batch_type m_elements;
-        batch_type m_elements_add;
+        batch_type m_elements_traverse;
     };
 
     namespace utils {

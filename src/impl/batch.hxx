@@ -5,26 +5,35 @@ namespace control {
     auto BatchImpl<T...>::hook(function_type callback) -> agent_type
     {
         auto agent(std::make_shared<shared_agent<T...>>(callback));
-        m_elements_add.push_back(agent);
+        m_elements.push_back(agent);
         return agent;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////
     template <typename... T>
-    bool BatchImpl<T...>::invoke(T... arg)
+    void BatchImpl<T...>::invoke(T... arg)
     {
-	merge_added_elements();
-	auto tmp = elements();
+	m_elements_traverse = elements();
         utils::process(std::move(m_elements), arg...);
-	m_elements_add.insert(m_elements_add.end(), tmp.begin(), tmp.end());
-        return true;
+	auto tb = m_elements_traverse.begin();
+	auto te = std::remove_if(tb, m_elements_traverse.end(), [&](pointer_type w){
+	    auto i = w.lock();
+	    return !i || i->is_dead();
+	});
+	m_elements.insert(m_elements.end(), tb, te);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////
+    template <typename ... T>
+    bool BatchImpl<T...>::is_dead() const
+    {
+        return false;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////
     template <typename... T>
     void BatchImpl<T...>::kill_invoke(T... arg)
     {
-	merge_added_elements();
         utils::process_and_kill(std::move(m_elements), arg...);
     }
  
@@ -33,7 +42,7 @@ namespace control {
     void BatchImpl<T...>::kill()
     {
         utils::kill_all(elements());
-        utils::kill_all(m_elements_add);
+        utils::kill_all(m_elements_traverse);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////
@@ -50,30 +59,18 @@ namespace control {
         return m_elements;
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////
-    template <typename... T>
-    void BatchImpl<T...>::merge_added_elements()
-    {
-        elements().insert(elements().end(), m_elements_add.begin(), m_elements_add.end());
-        m_elements_add.clear();
-    }
-
     namespace utils {
 
         /////////////////////////////////////////////////////////////////////////////////////
         template <typename T, typename... V>
         void process(T&& elements, V... v)
         { 
-	    T removeElements;
             T copy(std::move(elements));
             for(auto i = copy.begin(); i != copy.end(); ++i)
 	    {
                 auto s(i->lock());
                 if (s) {
-                    if (!s->invoke(v...))
-		    {
-//			removeElements.push_pack(s);
-		    }
+                    s->invoke(v...);
                 }
 	    }
         }
