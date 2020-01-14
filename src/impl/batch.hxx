@@ -5,7 +5,7 @@ namespace control {
     auto BatchImpl<T...>::hook(function_type callback) -> agent_type
     {
         auto agent(std::make_shared<shared_agent<T...>>(callback));
-        m_elements.push_back(agent);
+        m_elements.push(agent);
         return agent;
     }
 
@@ -13,14 +13,18 @@ namespace control {
     template <typename... T>
     void BatchImpl<T...>::invoke(T... arg)
     {
-	m_elements_traverse = elements();
-        utils::process(std::move(m_elements), arg...);
-	auto tb = m_elements_traverse.begin();
-	auto te = std::remove_if(tb, m_elements_traverse.end(), [&](pointer_type w){
-	    auto i = w.lock();
-	    return !i || i->is_dead();
-	});
-	m_elements.insert(m_elements.end(), tb, te);
+	m_elements_traverse = std::move(elements());
+        pointer_type agent;
+	while (m_elements_traverse.check_pop(agent))
+	{
+ 	    auto s(agent->lock());
+            if (s) {
+                s->invoke(v...);
+		if (!s->is_dead()) {
+		    elements().push(agent);
+		}
+            }
+ 	}		
     }
 
     /////////////////////////////////////////////////////////////////////////////////////

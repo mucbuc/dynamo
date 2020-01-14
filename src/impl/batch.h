@@ -4,6 +4,8 @@
 #include <memory>
 #include <vector>
 
+#include <lib/circuit/src/index.h> 
+
 #include "../interface.h"
 #include "agent.h"
 
@@ -24,7 +26,7 @@ namespace control {
 	bool is_dead() const override;
 
         typedef std::weak_ptr<typename agent_type::element_type> pointer_type;
-        typedef std::vector<pointer_type> batch_type;
+        typedef CircuitHost<pointer_type, QueuePolicy> batch_type;
         batch_type& elements();
         const batch_type& elements() const;
 
