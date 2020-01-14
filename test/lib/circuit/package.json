@@ -1,0 +1,15 @@
+{
+  "name": "circuit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "crimp -g test/test.json",
+    "format": "clang-format -i --style=Webkit src/*.h src/impl/*.h src/impl/*.hxx test/src/*.cpp"
+  },
+  "author": "",
+  "license": "ISC"
+}
