@@ -83,9 +83,10 @@ namespace control {
 	    for(auto i = copy.begin(); i != copy.end(); ++i)
 	    {
                 auto s(i->lock());
-                if (s)
+                if (s) {
                     s->kill_invoke(v...);
-            }
+                }
+	    }
         }
 
         /////////////////////////////////////////////////////////////////////////////////////
