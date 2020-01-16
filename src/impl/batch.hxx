@@ -13,7 +13,8 @@ namespace control {
     template <typename... T>
     void BatchImpl<T...>::invoke(T... arg)
     {
-	batch_type traverse { std::move(elements()) };
+        batch_type traverse;
+        traverse.swap( elements() );
         pointer_type agent;
 	while (traverse.check_pop(agent))
 	{

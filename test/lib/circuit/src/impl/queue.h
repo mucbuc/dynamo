@@ -22,7 +22,7 @@ namespace twice_size {
         {
             ASSERT(lhs.is_locked());
             ASSERT(rhs.is_locked());
-            lhs.m_queue.swap(rhs);
+            lhs.m_queue.swap(rhs.m_queue);
         }
 
         template <class U>
