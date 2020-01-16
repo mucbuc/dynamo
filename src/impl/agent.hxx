@@ -15,34 +15,7 @@ namespace control {
     template <typename... T>
     void shared_agent<T...>::invoke(T... args)
     {
-        if (!is_dead()) {
-            m_callback(args...);
-	}
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////
-    template <typename... T>
-    void shared_agent<T...>::kill_invoke(T... args)
-    {
-        if (!is_dead()) {
-            callback_type temp(m_callback);
-            kill();
-            temp(args...);
-        }
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////
-    template <typename... T>
-    void shared_agent<T...>::kill()
-    {
-        m_callback = callback_type();
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////
-    template <typename... T>
-    bool shared_agent<T...>::is_dead() const
-    {
-        return !m_callback;
+        m_callback(args...);
     }
 
 } //control

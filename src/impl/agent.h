@@ -15,9 +15,6 @@ namespace control {
         ~shared_agent() override = default;
 
         void invoke(T...) override;
-        void kill_invoke(T...) override;
-        void kill() override;
-	bool is_dead() const override;
 
     private:
         typedef std::function<void(T...)> callback_type;

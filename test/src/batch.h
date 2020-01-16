@@ -7,9 +7,9 @@ void check_unhook_while_traverse()
     BatchImpl<> batch;
     unsigned passed(0);
 
-    auto temp(batch.hook([&]() {
+    typename BatchImpl<>::listener_type temp(batch.hook([&]() {
         ++passed;
-	batch.kill();
+        temp.reset();
     }));
 
     batch.invoke();
