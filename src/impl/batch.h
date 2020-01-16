@@ -4,7 +4,7 @@
 #include <memory>
 #include <vector>
 
-#include <lib/circuit/src/index.h> 
+#include <lib/circuit/src/index.h>
 
 #include "../interface.h"
 #include "agent.h"

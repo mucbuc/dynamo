@@ -14,16 +14,15 @@ namespace control {
     void BatchImpl<T...>::invoke(T... arg)
     {
         batch_type traverse;
-        traverse.swap( elements() );
+        traverse.swap(elements());
         pointer_type agent;
-	while (traverse.check_pop(agent))
-	{
- 	    auto s(agent.lock());
+        while (traverse.check_pop(agent)) {
+            auto s(agent.lock());
             if (s) {
                 s->invoke(arg...);
-		elements().push(s);
+                elements().push(s);
             }
- 	}		
+        }
     }
 
     /////////////////////////////////////////////////////////////////////////////////////

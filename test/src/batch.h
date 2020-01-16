@@ -15,15 +15,16 @@ void check_unhook_while_traverse()
     batch.invoke();
     batch.invoke();
 
-    ASSERT(passed == 1)(passed);
+    ASSERT(passed == 1)
+    (passed);
 }
 
 void dead_agent_removal()
 {
     typedef BatchImpl<int> batch_type;
-    batch_type batch; 
-    batch.hook([](int){});
-    batch.invoke(9); 
+    batch_type batch;
+    batch.hook([](int) {});
+    batch.invoke(9);
 
     ASSERT(batch.elements().empty() && "dead agent removal");
 }
@@ -33,12 +34,12 @@ void check_traverse_with_arg()
     BatchImpl<int> batch;
     int v = 0;
     auto p(batch.hook([&](int i) {
-       v = i;
+        v = i;
     }));
 
     batch.invoke(99);
 
-    ASSERT(v == 99 );
+    ASSERT(v == 99);
 }
 
 void check_traverse_with_args()

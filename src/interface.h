@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 
 #include <memory>
 
@@ -15,7 +15,7 @@ namespace control {
     class Batch : public Agent<T...> {
     public:
         typedef std::shared_ptr<Agent<T...>> agent_type;
-	typedef agent_type listener_type;
+        typedef agent_type listener_type;
         typedef std::function<void(T...)> function_type;
 
         virtual ~Batch() = default;
