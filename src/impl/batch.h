@@ -7,7 +7,6 @@
 #include <lib/circuit/src/index.h>
 
 #include "../interface.h"
-#include "agent.h"
 
 namespace om636 {
 namespace control {

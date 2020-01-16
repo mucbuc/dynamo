@@ -3,8 +3,6 @@
 		"src/dynamofwd.h",
 		"src/interface.h",
 		"src/impl/batch.h",
-		"src/impl/batch.hxx",
-		"src/impl/agent.h",
-		"src/impl/agent.hxx"
+		"src/impl/batch.hxx"
 	]
 }

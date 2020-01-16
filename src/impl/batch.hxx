@@ -4,7 +4,7 @@ namespace control {
     template <typename... T>
     auto BatchImpl<T...>::hook(function_type callback) -> agent_type
     {
-        auto agent(std::make_shared<shared_agent<T...>>(callback));
+        auto agent(std::make_shared<function_type>(callback));
         m_elements.push(agent);
         return agent;
     }
@@ -19,7 +19,7 @@ namespace control {
         while (traverse.check_pop(agent)) {
             auto s(agent.lock());
             if (s) {
-                s->invoke(arg...);
+                (*s)(arg...);
                 elements().push(s);
             }
         }
