@@ -15,6 +15,7 @@ namespace control {
         virtual ~Batch() = default;
         virtual agent_type hook(function_type) = 0;
         virtual void invoke(T...) = 0;
+        virtual void invoke_once(T...) = 0;
     };
 
 } // control

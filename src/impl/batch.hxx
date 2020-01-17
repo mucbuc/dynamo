@@ -13,14 +13,31 @@ namespace control {
     template <typename... T>
     void BatchImpl<T...>::invoke(T... arg)
     {
+        invoke([this](agent_type s){
+          elements().push(s);
+        }, arg...);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////
+    template <typename... T>
+    void BatchImpl<T...>::invoke_once(T... arg)
+    {
+        invoke([](agent_type){}, arg...);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////
+    template <typename... T>
+    template <typename U>
+    void BatchImpl<T...>::invoke(U cb, T... arg)
+    {
         batch_type traverse;
         traverse.swap(elements());
         pointer_type agent;
         while (traverse.check_pop(agent)) {
-            auto s(agent.lock());
+            agent_type s(agent.lock());
             if (s) {
                 (*s)(arg...);
-                elements().push(s);
+                cb(s);
             }
         }
     }
