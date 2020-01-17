@@ -13,16 +13,17 @@ namespace control {
     template <typename... T>
     void BatchImpl<T...>::invoke(T... arg)
     {
-        invoke([this](agent_type s){
-          elements().push(s);
-        }, arg...);
+        invoke([this](agent_type s) {
+            elements().push(s);
+        },
+            arg...);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////
     template <typename... T>
     void BatchImpl<T...>::invoke_once(T... arg)
     {
-        invoke([](agent_type){}, arg...);
+        invoke([](agent_type) {}, arg...);
     }
 
     /////////////////////////////////////////////////////////////////////////////////////

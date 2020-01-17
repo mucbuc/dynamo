@@ -20,7 +20,7 @@ namespace control {
         ~BatchImpl() override = default;
         agent_type hook(function_type) override;
         void invoke(T...) override;
-	void invoke_once(T...) override;
+        void invoke_once(T...) override;
 
         typedef std::weak_ptr<typename agent_type::element_type> pointer_type;
         typedef twice_size::CircuitQueue<pointer_type> batch_type;
@@ -28,7 +28,7 @@ namespace control {
         const batch_type& elements() const;
 
     private:
-        template<typename U> 
+        template <typename U>
         void invoke(U, T...);
 
         batch_type m_elements;
