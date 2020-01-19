@@ -38,6 +38,9 @@ namespace control {
             agent_type s(agent.lock());
             if (s) {
                 (*s)(arg...);
+	    }
+	    s = agent.lock();
+	    if (s) {
                 cb(s);
             }
         }
