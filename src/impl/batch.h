@@ -19,11 +19,12 @@ namespace control {
 
         ~BatchImpl() override = default;
         agent_type hook(function_type) override;
+        agent_type hook_once(function_type) override;
         void invoke(T...) override;
-        void invoke_once(T...) override;
 
         typedef std::weak_ptr<typename agent_type::element_type> pointer_type;
-        typedef circuit::CircuitQueue<pointer_type> batch_type;
+	typedef std::tuple<pointer_type, bool> tuple_type;
+        typedef circuit::CircuitQueue<tuple_type> batch_type;
         batch_type& elements();
         const batch_type& elements() const;
 

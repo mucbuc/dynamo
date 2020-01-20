@@ -5,7 +5,16 @@ namespace control {
     auto BatchImpl<T...>::hook(function_type callback) -> agent_type
     {
         auto agent(std::make_shared<function_type>(callback));
-        m_elements.push(agent);
+        m_elements.push(std::make_tuple<pointer_type, bool>(agent, true));
+        return agent;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////
+    template <typename... T>
+    auto BatchImpl<T...>::hook_once(function_type callback) -> agent_type
+    {
+        auto agent(std::make_shared<function_type>(callback));
+        m_elements.push(std::make_tuple<pointer_type, bool>(agent, false));
         return agent;
     }
 
@@ -13,35 +22,17 @@ namespace control {
     template <typename... T>
     void BatchImpl<T...>::invoke(T... arg)
     {
-        invoke([this](agent_type s) {
-            elements().push(s);
-        },
-            arg...);
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////
-    template <typename... T>
-    void BatchImpl<T...>::invoke_once(T... arg)
-    {
-        invoke([](agent_type) {}, arg...);
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////
-    template <typename... T>
-    template <typename U>
-    void BatchImpl<T...>::invoke(U cb, T... arg)
-    {
         batch_type traverse;
         traverse.swap(elements());
-        pointer_type agent;
+        tuple_type agent;
         while (traverse.check_pop(agent)) {
-            agent_type s(agent.lock());
+            agent_type s(std::get<0>(agent).lock());
             if (s) {
                 (*s)(arg...);
 	    }
-	    s = agent.lock();
-	    if (s) {
-                cb(s);
+	    s = std::get<0>(agent).lock();
+	    if (s && std::get<1>(agent)) {
+                elements().push(std::move(agent));
             }
         }
     }
