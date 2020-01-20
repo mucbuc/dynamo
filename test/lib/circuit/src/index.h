@@ -5,7 +5,7 @@
 #include "impl/queue.h"
 
 namespace om636 {
-namespace twice_size {
+namespace circuit {
 
 template<typename T>
 using CircuitStack = CircuitHost<T, StackPolicy>;
@@ -13,6 +13,6 @@ using CircuitStack = CircuitHost<T, StackPolicy>;
 template<typename T>
 using CircuitQueue = CircuitHost<T, QueuePolicy>;
 
-} // twice_size
+} // circuit
 } // om636
     

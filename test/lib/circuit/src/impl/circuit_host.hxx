@@ -1,5 +1,5 @@
 namespace om636 {
-namespace twice_size {
+namespace circuit {
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     template <typename T, template <typename> class U>
@@ -86,5 +86,5 @@ namespace twice_size {
         m_condition.wait(lock, [this] { return !policy_type::on_empty(*this); });
         policy_type::on_pop(*this, value);
     }
-} // twice_size
+} // circuit
 } // om636

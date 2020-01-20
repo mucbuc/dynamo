@@ -23,7 +23,7 @@ namespace control {
         void invoke_once(T...) override;
 
         typedef std::weak_ptr<typename agent_type::element_type> pointer_type;
-        typedef twice_size::CircuitQueue<pointer_type> batch_type;
+        typedef circuit::CircuitQueue<pointer_type> batch_type;
         batch_type& elements();
         const batch_type& elements() const;
 

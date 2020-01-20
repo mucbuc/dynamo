@@ -20,7 +20,7 @@ void test_wait_pop(T s)
 
 int main()
 {
-    using namespace om636::twice_size;
+    using namespace om636::circuit;
 
     test_wait_pop(std::make_shared<CircuitStack<int>>());
     test_wait_pop(std::make_shared<CircuitQueue<int>>());

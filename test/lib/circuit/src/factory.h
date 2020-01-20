@@ -5,7 +5,7 @@
 #include "impl/stack.h"
 
 namespace om636 {
-namespace twice_size {
+namespace circuit {
 
     template <typename T>
     std::shared_ptr<Circuit<T>> make_stack()
@@ -18,5 +18,5 @@ namespace twice_size {
     {
         return std::make_shared<CircuitHost<T, QueuePolicy>>();
     }
-} // twice_size
+} // circuit
 } // om636

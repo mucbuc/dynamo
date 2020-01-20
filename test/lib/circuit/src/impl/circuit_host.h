@@ -7,7 +7,7 @@
 #include "../interface.h"
 
 namespace om636 {
-namespace twice_size {
+namespace circuit {
 
     template <typename T, template <typename> class U>
     struct CircuitHost
@@ -38,7 +38,7 @@ namespace twice_size {
         std::condition_variable m_condition;
     };
 
-} // twice_size
+} // circuit
 } // om636
 
 #include "circuit_host.hxx"

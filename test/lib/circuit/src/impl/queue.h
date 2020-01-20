@@ -3,7 +3,7 @@
 #include <queue>
 
 namespace om636 {
-namespace twice_size {
+namespace circuit {
 
     template <typename T>
     struct QueuePolicy {
@@ -51,5 +51,5 @@ namespace twice_size {
         std::queue<value_type> m_queue;
     };
 
-} // twice_size
+} // circuit
 } // om636

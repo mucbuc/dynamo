@@ -3,7 +3,7 @@
 #include <stack>
 
 namespace om636 {
-namespace twice_size {
+namespace circuit {
 
     template <typename T>
     struct StackPolicy {
@@ -51,5 +51,5 @@ namespace twice_size {
         std::stack<value_type> m_stack;
     };
 
-} // twice_size
+} // circuit
 } // om636

@@ -1,8 +1,7 @@
-#ifndef TWICE_SIZE_INTERFACE_H_0494LLJLKJ23
-#define TWICE_SIZE_INTERFACE_H_0494LLJLKJ23
+#pragma once
 
 namespace om636 {
-namespace twice_size {
+namespace circuit {
 
     template <class T>
     struct Circuit {
@@ -14,7 +13,6 @@ namespace twice_size {
         virtual void wait_pop(value_type&) = 0;
     };
 
-} // twice_size
+} // circuit
 } // om636
 
-#endif // TWICE_SIZE_INTERFACE_H_0494LLJLKJ23
