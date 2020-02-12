@@ -17,6 +17,7 @@ namespace circuit {
         using typename base_type::value_type;
 
         CircuitHost() = default;
+        CircuitHost(const CircuitHost&);
         CircuitHost(CircuitHost&&);
         CircuitHost& operator=(CircuitHost);
 
@@ -28,6 +29,7 @@ namespace circuit {
         void push(value_type&&) override;
         bool check_pop(value_type&) override;
         void wait_pop(value_type&) override;
+        CircuitHost* clone() const override;
 
     private:
         typedef U<T> policy_type;

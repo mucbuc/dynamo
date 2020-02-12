@@ -25,7 +25,6 @@ int main()
     test_wait_pop(std::make_shared<CircuitStack<int>>());
     test_wait_pop(std::make_shared<CircuitQueue<int>>());
 
-
     CircuitQueue<int> a, b;
     a.swap(b);
 

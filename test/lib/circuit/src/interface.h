@@ -11,8 +11,8 @@ namespace circuit {
         virtual void push(value_type&&) = 0;
         virtual bool check_pop(value_type&) = 0;
         virtual void wait_pop(value_type&) = 0;
+        virtual Circuit* clone() const = 0;
     };
 
 } // circuit
 } // om636
-

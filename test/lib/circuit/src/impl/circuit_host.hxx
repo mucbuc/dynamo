@@ -3,6 +3,19 @@ namespace circuit {
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     template <typename T, template <typename> class U>
+    CircuitHost<T, U>::CircuitHost(const CircuitHost& rhs)
+    {
+        typedef std::unique_lock<mutex_type> lock_type;
+
+        lock_type left_lock(m_mutex, std::defer_lock);
+        lock_type right_lock(rhs.m_mutex, std::defer_lock);
+        std::lock(left_lock, right_lock);
+
+        policy_type::on_copy(*this, rhs);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    template <typename T, template <typename> class U>
     CircuitHost<T, U>::CircuitHost(CircuitHost&& rhs)
     {
         lock_type lock(m_mutex);
@@ -48,8 +61,8 @@ namespace circuit {
         bool result(false);
         std::thread([this, &result]() {
             result = m_mutex.try_lock();
-	    if (result) {
-	        m_mutex.unlock();
+            if (result) {
+                m_mutex.unlock();
             }
         }).join();
         return !result;
@@ -86,5 +99,13 @@ namespace circuit {
         m_condition.wait(lock, [this] { return !policy_type::on_empty(*this); });
         policy_type::on_pop(*this, value);
     }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    template <typename T, template <typename> class U>
+    auto CircuitHost<T, U>::clone() const -> CircuitHost*
+    {
+        return new CircuitHost(*this);
+    }
+
 } // circuit
 } // om636

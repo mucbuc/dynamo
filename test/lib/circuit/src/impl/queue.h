@@ -18,6 +18,14 @@ namespace circuit {
         }
 
         template <class U>
+        static void on_copy(U& lhs, const U& rhs)
+        {
+            ASSERT(lhs.is_locked());
+            ASSERT(rhs.is_locked());
+            lhs.m_queue = rhs.m_queue;
+        }
+
+        template <class U>
         static void on_swap(U& lhs, U& rhs)
         {
             ASSERT(lhs.is_locked());

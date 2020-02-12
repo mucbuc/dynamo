@@ -1,11 +1,14 @@
-## dynamo
+# dynamo
 
-### Objective:
+Dispatch work to agents.
 
-Dispatch work to agents. 
-
-### Interface: 
+## Interface
 ```
+#pragma once
+
+#include <functional>
+#include <memory>
+
 namespace om636 {
 namespace control {
 
@@ -24,6 +27,7 @@ namespace control {
 
 } // control
 } // om636
+
 ```
 
 ### Dependencies

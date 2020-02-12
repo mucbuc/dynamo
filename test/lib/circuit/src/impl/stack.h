@@ -10,6 +10,14 @@ namespace circuit {
         typedef T value_type;
 
         template <class U>
+        static void on_copy(U& lhs, const U& rhs)
+        {
+            ASSERT(lhs.is_locked());
+            ASSERT(rhs.is_locked());
+            lhs.m_stack = rhs.m_stack;
+        }
+
+        template <class U>
         static void on_init(U& lhs, U&& rhs)
         {
             ASSERT(lhs.is_locked());
