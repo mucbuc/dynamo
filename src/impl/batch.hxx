@@ -29,9 +29,9 @@ namespace control {
             agent_type s(std::get<0>(agent).lock());
             if (s) {
                 (*s)(arg...);
-	    }
-	    s = std::get<0>(agent).lock();
-	    if (s && std::get<1>(agent)) {
+            }
+            s = std::get<0>(agent).lock();
+            if (s && std::get<1>(agent)) {
                 elements().push(std::move(agent));
             }
         }

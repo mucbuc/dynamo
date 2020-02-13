@@ -23,7 +23,7 @@ namespace control {
         void invoke(T...) override;
 
         typedef std::weak_ptr<typename agent_type::element_type> pointer_type;
-	typedef std::tuple<pointer_type, bool> tuple_type;
+        typedef std::tuple<pointer_type, bool> tuple_type;
         typedef circuit::CircuitQueue<tuple_type> batch_type;
         batch_type& elements();
         const batch_type& elements() const;

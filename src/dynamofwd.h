@@ -2,10 +2,10 @@
 
 namespace om636 {
 namespace control {
-    template <typename ...>
+    template <typename...>
     struct Agent;
 
-    template <typename ...>
+    template <typename...>
     struct Batch;
 }
 }
