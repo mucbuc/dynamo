@@ -1,8 +1,8 @@
 namespace om636 {
 namespace control {
     /////////////////////////////////////////////////////////////////////////////////////
-    template <typename... T>
-    auto BatchImpl<T...>::hook(function_type callback) -> agent_type
+    template <template<typename> typename P, typename... T>
+    auto BatchImpl<P, T...>::hook(function_type callback) -> agent_type
     {
         using namespace std;
         auto agent(make_shared<function_type>(callback));
@@ -11,8 +11,8 @@ namespace control {
     }
 
     /////////////////////////////////////////////////////////////////////////////////////
-    template <typename... T>
-    auto BatchImpl<T...>::hook_once(function_type callback) -> agent_type
+    template <template<typename> typename P, typename... T>
+    auto BatchImpl<P, T...>::hook_once(function_type callback) -> agent_type
     {
         using namespace std;
         auto agent(make_shared<function_type>(callback));
@@ -21,8 +21,8 @@ namespace control {
     }
 
     /////////////////////////////////////////////////////////////////////////////////////
-    template <typename... T>
-    void BatchImpl<T...>::invoke(T... arg)
+    template <template<typename> typename P, typename... T>
+    void BatchImpl<P, T...>::invoke(T... arg)
     {
 	using namespace std;
         batch_type traverse;
@@ -41,15 +41,15 @@ namespace control {
     }
 
     /////////////////////////////////////////////////////////////////////////////////////
-    template <typename... T>
-    auto BatchImpl<T...>::impl_ref() -> batch_type&
+    template <template<typename> typename P, typename... T>
+    auto BatchImpl<P, T...>::impl_ref() -> batch_type&
     {
         return m_impl;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////
-    template <typename... T>
-    auto BatchImpl<T...>::impl_ref() const -> const batch_type&
+    template <template<typename> typename P, typename... T>
+    auto BatchImpl<P, T...>::impl_ref() const -> const batch_type&
     {
         return m_impl;
     }

@@ -10,7 +10,13 @@
 
 namespace om636 {
 namespace control {
-    template <typename... T>
+
+    template<class T> 
+	    class dummy
+	    {};
+
+
+    template <template<typename> typename P, typename... T>
     class BatchImpl : public Batch<T...> {
     public:
         typedef Batch<T...> base_type;
