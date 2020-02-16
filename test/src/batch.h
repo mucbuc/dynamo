@@ -26,7 +26,7 @@ void dead_agent_removal()
     batch.hook([](int) {});
     batch.invoke(9);
 
-    ASSERT(batch.elements().empty() && "dead agent removal");
+    ASSERT(batch.impl_ref().empty() && "dead agent removal");
 }
 
 void check_traverse_with_arg()
