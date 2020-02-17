@@ -5,6 +5,8 @@
 #include <vector>
 
 #include <lib/circuit/src/impl/circuit_host.h>
+#include <lib/circuit/src/impl/queue.h>
+#include <lib/circuit/src/impl/stack.h>
 
 #include "../interface.h"
 

@@ -1,6 +1,5 @@
 #include <tmp/src/test.h>
 
-#include <lib/dynamo/src/factory.h>
 #include <lib/dynamo/src/interface.h>
 
 int main()

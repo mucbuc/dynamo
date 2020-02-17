@@ -53,5 +53,17 @@ namespace control {
     {
         return m_impl;
     }
+
+    template <typename... T>
+    std::shared_ptr<Batch<T...>> make_queue()
+    {
+        return std::make_shared<BatchImpl<om636::circuit::QueuePolicy, T...>>();
+    }
+
+    template <typename... T>
+    std::shared_ptr<Batch<T...>> make_stack()
+    {
+        return std::make_shared<BatchImpl<om636::circuit::StackPolicy, T...>>();
+    }
 } // control
 } // om636

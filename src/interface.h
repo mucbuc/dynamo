@@ -19,5 +19,11 @@ namespace control {
         virtual void invoke(T...) = 0;
     };
 
+    template <typename... T>
+    std::shared_ptr<Batch<T...>> make_queue();
+
+    template <typename... T>
+    std::shared_ptr<Batch<T...>> make_stack();
+ 
 } // control
 } // om636
