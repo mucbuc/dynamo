@@ -36,8 +36,7 @@ namespace control {
 
 ```
 
-
-## Example
+## Example 
 ```
 #include <tmp/src/test.h>
 
@@ -55,6 +54,7 @@ int main()
     ASSERT(sum == 25);
     return 0;
 }
+
 ```
 
 ### Dependencies
