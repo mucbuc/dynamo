@@ -24,6 +24,6 @@ namespace control {
 
     template <typename... T>
     std::shared_ptr<Batch<T...>> make_stack();
- 
+
 } // control
 } // om636
