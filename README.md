@@ -41,10 +41,11 @@ namespace control {
 #include <tmp/src/test.h>
 
 #include <lib/dynamo/src/interface.h>
+#include <lib/dynamo/src/impl/batch.h>
 
 int main()
 {
-    auto b = om636::control::make_stack<int>();
+    auto b = om636::control::make_queue<int>();
 
     int sum { 0 };
 
