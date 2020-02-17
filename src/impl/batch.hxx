@@ -1,7 +1,7 @@
 namespace om636 {
 namespace control {
     /////////////////////////////////////////////////////////////////////////////////////
-    template <template<typename> typename P, typename... T>
+    template <template <typename> typename P, typename... T>
     auto BatchImpl<P, T...>::hook(function_type callback) -> agent_type
     {
         using namespace std;
@@ -11,7 +11,7 @@ namespace control {
     }
 
     /////////////////////////////////////////////////////////////////////////////////////
-    template <template<typename> typename P, typename... T>
+    template <template <typename> typename P, typename... T>
     auto BatchImpl<P, T...>::hook_once(function_type callback) -> agent_type
     {
         using namespace std;
@@ -21,10 +21,10 @@ namespace control {
     }
 
     /////////////////////////////////////////////////////////////////////////////////////
-    template <template<typename> typename P, typename... T>
+    template <template <typename> typename P, typename... T>
     void BatchImpl<P, T...>::invoke(T... arg)
     {
-	using namespace std;
+        using namespace std;
         batch_type traverse;
         traverse.swap(impl_ref());
         tuple_type agent;
@@ -41,14 +41,14 @@ namespace control {
     }
 
     /////////////////////////////////////////////////////////////////////////////////////
-    template <template<typename> typename P, typename... T>
+    template <template <typename> typename P, typename... T>
     auto BatchImpl<P, T...>::impl_ref() -> batch_type&
     {
         return m_impl;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////
-    template <template<typename> typename P, typename... T>
+    template <template <typename> typename P, typename... T>
     auto BatchImpl<P, T...>::impl_ref() const -> const batch_type&
     {
         return m_impl;

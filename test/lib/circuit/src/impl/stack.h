@@ -30,7 +30,7 @@ namespace circuit {
         {
             ASSERT(lhs.is_locked());
             ASSERT(rhs.is_locked());
-            lhs.m_stack.swap(rhs);
+            lhs.m_stack.swap(rhs.m_stack);
         }
 
         template <class U>
