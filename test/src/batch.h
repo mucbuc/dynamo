@@ -1,13 +1,16 @@
-using namespace om636;
+#include <lib/circuit/src/impl/queue.h>
+
 using namespace om636::control;
+using namespace om636;
 using namespace std;
+using namespace om636::circuit;
 
 void check_unhook_while_traverse()
 {
-    BatchImpl<dummy> batch;
+    BatchImpl<QueuePolicy> batch;
     unsigned passed(0);
 
-    typename BatchImpl<dummy>::listener_type temp(batch.hook([&]() {
+    typename BatchImpl<QueuePolicy>::listener_type temp(batch.hook([&]() {
         ++passed;
         temp.reset();
     }));
@@ -21,7 +24,7 @@ void check_unhook_while_traverse()
 
 void dead_agent_removal()
 {
-    typedef BatchImpl<dummy, int> batch_type;
+    typedef BatchImpl<QueuePolicy, int> batch_type;
     batch_type batch;
     batch.hook([](int) {});
     batch.invoke(9);
@@ -31,7 +34,7 @@ void dead_agent_removal()
 
 void check_traverse_with_arg()
 {
-    BatchImpl<dummy, int> batch;
+    BatchImpl<QueuePolicy, int> batch;
     int v = 0;
     auto p(batch.hook([&](int i) {
         v = i;
@@ -44,7 +47,7 @@ void check_traverse_with_arg()
 
 void check_traverse_with_args()
 {
-    typedef BatchImpl<dummy, int, int> batch_type;
+    typedef BatchImpl<QueuePolicy, int, int> batch_type;
 
     unsigned test_passed(0);
     batch_type batch;
@@ -62,7 +65,7 @@ void check_traverse_with_args()
 
 void check_traverse_while_traverse()
 {
-    BatchImpl<dummy> batch;
+    BatchImpl<QueuePolicy> batch;
     unsigned passed(0);
 
     auto p(batch.hook([&]() {
@@ -77,7 +80,7 @@ void check_traverse_while_traverse()
 
 void check_traverse()
 {
-    BatchImpl<dummy> batch;
+    BatchImpl<QueuePolicy> batch;
     unsigned passed(0);
 
     auto temp(batch.hook([&]() {
