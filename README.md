@@ -40,14 +40,23 @@ namespace control {
 ```
 #include <tmp/src/test.h>
 
+<<<<<<< HEAD
 #include <lib/dynamo/src/impl/batch.h>
 #include <lib/dynamo/src/interface.h>
+=======
+#include <lib/dynamo/src/interface.h>
+#include <lib/dynamo/src/impl/batch.h>
+>>>>>>> origin/master
 
 int main()
 {
     auto b = om636::control::make_queue<int>();
 
+<<<<<<< HEAD
     int sum{ 0 };
+=======
+    int sum { 0 };
+>>>>>>> origin/master
 
     auto q = b->hook([&](int i) { sum += i; });
     auto p = b->hook([&](int i) { sum *= i; });
