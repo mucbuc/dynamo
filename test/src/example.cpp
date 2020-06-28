@@ -1,7 +1,7 @@
 #include <tmp/src/test.h>
 
-#include <lib/dynamo/src/interface.h>
 #include <lib/dynamo/src/impl/batch.h>
+#include <lib/dynamo/src/interface.h>
 
 int main()
 {
