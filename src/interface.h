@@ -1,0 +1,29 @@
+#pragma once
+
+#include <functional>
+#include <memory>
+
+namespace om636 {
+namespace control {
+
+    template <typename... T>
+    class Batch {
+    public:
+        typedef std::function<void(T...)> function_type;
+        typedef std::shared_ptr<function_type> agent_type;
+        typedef agent_type listener_type;
+
+        virtual ~Batch() = default;
+        virtual agent_type hook(function_type) = 0;
+        virtual agent_type hook_once(function_type) = 0;
+        virtual void invoke(T...) = 0;
+    };
+
+    template <typename... T>
+    std::shared_ptr<Batch<T...>> make_queue();
+
+    template <typename... T>
+    std::shared_ptr<Batch<T...>> make_stack();
+
+} // control
+} // om636

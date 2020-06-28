@@ -1,0 +1,8 @@
+{
+	"import": [
+		"lib/dynamo/def.json"
+	],
+	"sources": [
+		"src/example.cpp"
+	]
+}
