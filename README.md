@@ -1,5 +1,7 @@
 # dynamo
 
+![Test](https://github.com/mucbuc/dynamo/workflows/Test/badge.svg)
+
 Dispatch work to agents.
 
 ## Interface
