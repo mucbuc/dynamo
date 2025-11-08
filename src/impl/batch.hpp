@@ -4,11 +4,11 @@
 #include <memory>
 #include <vector>
 
-#include <lib/circuit/src/impl/circuit_host.h>
-#include <lib/circuit/src/impl/queue.h>
-#include <lib/circuit/src/impl/stack.h>
+#include <lib/circuit/src/impl/circuit_host.hpp>
+#include <lib/circuit/src/impl/queue.hpp>
+#include <lib/circuit/src/impl/stack.hpp>
 
-#include "../interface.h"
+#include "../interface.hpp"
 
 namespace om636 {
 namespace control {

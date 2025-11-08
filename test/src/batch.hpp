@@ -1,4 +1,4 @@
-#include <lib/circuit/src/impl/queue.h>
+#include <lib/circuit/src/impl/queue.hpp>
 
 using namespace om636::control;
 using namespace om636;
@@ -20,6 +20,8 @@ void check_unhook_while_traverse()
 
     ASSERT(passed == 1)
     (passed);
+
+    FOOTER;
 }
 
 void dead_agent_removal()
@@ -29,7 +31,9 @@ void dead_agent_removal()
     batch.hook([](int) {});
     batch.invoke(9);
 
-    ASSERT(batch.impl_ref().empty() && "dead agent removal");
+    ASSERT(batch.impl_ref().empty());
+
+    FOOTER;
 }
 
 void check_traverse_with_arg()
@@ -43,6 +47,8 @@ void check_traverse_with_arg()
     batch.invoke(99);
 
     ASSERT(v == 99);
+
+    FOOTER;
 }
 
 void check_traverse_with_args()
@@ -61,6 +67,8 @@ void check_traverse_with_args()
     batch.invoke(99, 3);
 
     ASSERT(test_passed == 1);
+
+    FOOTER;
 }
 
 void check_traverse_while_traverse()
@@ -76,6 +84,8 @@ void check_traverse_while_traverse()
     batch.invoke();
 
     ASSERT(passed == 1);
+
+    FOOTER;
 }
 
 void check_traverse()
@@ -91,4 +101,6 @@ void check_traverse()
     batch.invoke();
 
     ASSERT(passed == 2);
+
+    FOOTER;
 }

@@ -1,8 +1,0 @@
-{
-	"import":[
-		"lib/circuit/circuit.json"
-	],
-	"sources": [
-		"src/main.cpp"
-	]
-}

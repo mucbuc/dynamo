@@ -1,11 +1,10 @@
 #include <functional>
 #include <iostream>
 
-#include <tmp/src/test.h>
+#include <lib/asserter/src/test.hpp>
+#include <lib/dynamo/src/impl/batch.hpp>
 
-#include <lib/dynamo/src/impl/batch.h>
-
-#include "batch.h"
+#include "batch.hpp"
 
 int main(int argc, const char* argv[])
 {

@@ -1,10 +1,14 @@
 # circuit
 
-Syncronize container operations for single objects
+![Test](https://github.com/mucbuc/circuit/workflows/Test/badge.svg)
+
+Synchronize container operations for single objects
 
 ## Interface
 ```
 #pragma once
+
+#include <memory>
 
 namespace om636 {
 namespace circuit {
@@ -17,16 +21,21 @@ namespace circuit {
         virtual void push(value_type&&) = 0;
         virtual bool check_pop(value_type&) = 0;
         virtual void wait_pop(value_type&) = 0;
-        virtual Circuit* clone() const = 0;
+        virtual std::shared_ptr<Circuit> clone() const = 0;
     };
+
+    template <typename T>
+    std::shared_ptr<Circuit<T>> make_stack();
+
+    template <typename T>
+    std::shared_ptr<Circuit<T>> make_queue();
 
 } // circuit
 } // om636
 
 ```
 
-
-## Example
+## Example 
 ```
 #include <tmp/src/test.h>
 
@@ -37,16 +46,16 @@ using namespace om636::circuit;
 
 int main()
 {
-    CircuitStack<int> s;
-	
-    s.push(88);
-    s.push(77);
+    auto s = make_stack<int>();
 
-    int i;
-    s.wait_pop(i);
-    if (s.check_pop(i)) {
-    
+    s->push(88);
+    s->push(77);
+
+    int i(0);
+    s->wait_pop(i);
+    if (s->check_pop(i)) {
     }
 }
+
 ```
 
