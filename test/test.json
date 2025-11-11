@@ -1,9 +1,0 @@
-{
-	"import": [
-		"lib/dynamo/def.json"
-	],
-	"sources": [
-		"src/main.cpp",
-		"src/batch.h"
-	]
-}

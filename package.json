@@ -1,9 +1,0 @@
-{ "version":"0.0.0",
-  "description":"Dispatch work to agents.",
-  "name":"dynamo",
-  "scripts": {
-    "test": "crimp test/test.json -g",
-    "generateDocs":"doc-tool package_header src_interface test_example ./OTHER.md > README.md",
-    "format": "clang-format -i --style=Webkit src/*.h src/impl/*.h src/impl/*.hxx test/src/*.cpp"
-  }
-}
