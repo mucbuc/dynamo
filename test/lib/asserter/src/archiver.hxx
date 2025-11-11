@@ -1,6 +1,7 @@
 #include <cassert>
 #include <cstring>
 #include <fstream>
+#include <iostream>
 #include <sstream>
 #include <string>
 
@@ -13,28 +14,31 @@ auto archiver<T>::instance() -> archiver&
 }
 
 template <typename T>
+template <typename O>
+bool archiver<T>::print_results(O& out)
+{
+    using namespace std;
+    out << "{\n";
+    out << "  \"passed\": " << m_passed;
+    if (m_failed) {
+        out << "," << "\n";
+        out << "  \"failed\": " << m_failed;
+    }
+    out << "\n";
+    out << "}\n";
+    return out.good();
+}
+
+template <typename T>
 archiver<T>::~archiver()
 {
     using namespace std;
+    ofstream out(m_results_file);
 
-    fstream out("result.json", fstream::out);
-
-    out << "{\n";
-    out << "\"passed\": " << m_passed;
-
-    if (m_failed.begin() != m_failed.end()) {
-        out << "," << endl;
-
-        auto i(m_failed.begin());
-        out << "\"failed\": [" << endl
-            << *(i++) << endl;
-        while (i != m_failed.end())
-            out << ", " << *(i++) << endl;
-        out << "]" << endl;
-    } else {
-        out << endl;
+    if (!out || !print_results(out)) {
+        cerr << "Error: archiver failed to open or write to " << m_results_file << ". Writing to std::cerr instead" << endl;
+        print_results(cerr);
     }
-    out << "}\n";
 }
 
 template <class T>
@@ -44,25 +48,8 @@ void archiver<T>::pass()
 }
 
 template <class T>
-void archiver<T>::fail(
-    const char* file,
-    int line,
-    const char* function,
-    const char* message)
+void archiver<T>::fail()
 {
-    using namespace std;
-
-    stringstream entry;
-    entry << "{" << endl;
-
-    if (strlen(message)) {
-        entry << "\"message\":\"" << message << "\"," << endl;
-    }
-    entry << "\"file\":\"" << file << "\"," << endl;
-    entry << "\"function\":\"" << function << "\"," << endl;
-    entry << "\"line\":" << line << endl;
-    entry << "}" << endl;
-
-    m_failed.push_back(entry.str());
+    ++m_failed;
 }
 } // private_assert

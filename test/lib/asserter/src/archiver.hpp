@@ -11,15 +11,16 @@ struct archiver {
     ~archiver();
 
     void pass();
-    void fail(
-        const char*,
-        int,
-        const char* function,
-        const char* = "");
+    void fail();
 
 private:
     std::size_t m_passed = 0;
-    std::vector<std::string> m_failed;
+    std::size_t m_failed = 0;
+
+    template <typename O>
+    bool print_results(O&);
+
+    const std::string m_results_file = "result.json";
 };
 }
 

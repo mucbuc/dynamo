@@ -35,20 +35,24 @@ public:
 #define TARGET_TEST 0
 #endif
 
-#define ASSERT(expr)                                                               \
-    if (!TARGET_TEST && (expr))                                                    \
-        ;                                                                          \
-    else                                                                           \
-        struct local_t {                                                           \
-            local_t(const asserter_t<>& o)                                         \
-            {                                                                      \
-                if (!(o.pass())) {                                                 \
-                    o.on_failure();                                                \
-                }                                                                  \
-            }                                                                      \
-        } local_obj = asserter_t<>(bool(expr))                                     \
-                          .print_message(__FILE__, __LINE__, __FUNCTION__, #expr)  \
-                          .archive_result(__FILE__, __LINE__, __FUNCTION__, #expr) \
+#if !(TARGET_TEST) || !defined(CONTINUE_ON_FAILURE)
+#define CONTINUE_ON_FAILURE 0
+#endif
+
+#define ASSERT(expr)                                                              \
+    if (!(TARGET_TEST) && (expr))                                                 \
+        ;                                                                         \
+    else                                                                          \
+        struct local_t {                                                          \
+            local_t(const asserter_t<>& o)                                        \
+            {                                                                     \
+                if (!(CONTINUE_ON_FAILURE) && !(o.pass())) {                      \
+                    o.on_failure();                                               \
+                }                                                                 \
+            }                                                                     \
+        } local_obj = asserter_t<>(bool(expr))                                    \
+                          .print_message(__FILE__, __LINE__, __FUNCTION__, #expr) \
+                          .archive_result()                                       \
                           .SMART_ASSERT_A
 
 template <typename T = void>
@@ -63,11 +67,7 @@ struct asserter_t final {
         const char* function,
         const char* = "") const;
 
-    const asserter_t& archive_result(
-        const char* file,
-        int line,
-        const char* function,
-        const char* = "") const;
+    const asserter_t& archive_result() const;
 
     template <class U>
     const asserter_t& print_current_val(const U&, const char*) const;

@@ -11,9 +11,9 @@
 // /////////////////////////////////////////////////////////////////////////////////////////////
 template <typename T>
 template <class U>
-const asserter_t<T>& asserter_t<T>::print_current_val(const U& value, const char* message) const
+const asserter_t<T>& asserter_t<T>::print_current_val(const U& value, const char* name) const
 {
-    std::cout << message << ": " << value << std::endl;
+    std::cout << name << ": " << value << std::endl;
     return *this;
 }
 
@@ -75,17 +75,13 @@ const asserter_t<T>& asserter_t<T>::print_message(
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 template <typename T>
-const asserter_t<T>& asserter_t<T>::archive_result(
-    const char* file,
-    int line,
-    const char* function,
-    const char* message) const
+const asserter_t<T>& asserter_t<T>::archive_result() const
 {
     auto& a(private_assert::archiver<>::instance());
     if (pass()) {
         a.pass();
     } else {
-        a.fail(file, line, function, message);
+        a.fail();
     }
     return *this;
 }

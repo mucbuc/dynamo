@@ -6,4 +6,4 @@
 
 #include "asserter.hpp"
 
-#define FOOTER std::cout << __FUNCTION__ << " passed" << std::endl;
+#define FOOTER std::cout << __func__ << " passed" << std::endl;

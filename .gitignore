@@ -2,3 +2,5 @@
 test/build/
 test/web-build/
 test/result.json
+test/lib/**/test
+
