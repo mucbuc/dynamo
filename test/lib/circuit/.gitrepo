@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = git@github.com:mucbuc/circuit
+	branch = main
+	commit = bd4103e3195e6634fd78b48d39fdb0e63156d7d2
+	parent = 1dd863b0107e8494dd59e676d7bca6f2643302d8
+	method = merge
+	cmdver = 0.4.9

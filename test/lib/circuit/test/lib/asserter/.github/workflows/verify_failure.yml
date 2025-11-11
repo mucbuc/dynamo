@@ -1,0 +1,57 @@
+name: Verify Assertion Failure
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+    branches:
+      - "**"
+
+jobs:
+  test-native:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build
+        run: |
+          cd test
+          cmake -B build
+          cmake --build build
+
+      - name: Verify assertion fails
+        run: |
+          cd test
+          if ctest --test-dir build; then
+            echo "ERROR: Test should have failed but passed"
+            exit 1
+          else
+            echo "Test failed as expected"
+            exit 0
+          fi
+
+  test-emscripten:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: mymindstorm/setup-emsdk@v14
+
+      - name: Build
+        run: |
+          cd test
+          emcmake cmake -B web-build
+          cmake --build web-build
+
+      - name: Verify assertion fails
+        run: |
+          cd test
+          if ctest --test-dir web-build; then
+            echo "ERROR: Test should have failed"
+            exit 1
+          else
+            echo "Test failed as expected"
+            exit 0
+          fi
