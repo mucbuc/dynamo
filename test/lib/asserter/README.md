@@ -106,7 +106,7 @@ Test mode generates a `result.json` file with assertion statistics:
 To prevent termination on failed assertions (useful for test suites), define `CONTINUE_ON_FAILURE` before including `test.hpp`:
 
 ```cpp
-#define CONTINUE_ON_FAILURE
+#define CONTINUE_ON_FAILURE 1
 #include "test.hpp"
 
 void test_suite() {
