@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-clang-format -i --style=Webkit **/*.{h,hpp,hxx,cpp,m,mm}
