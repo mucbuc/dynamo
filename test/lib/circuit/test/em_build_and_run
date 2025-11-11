@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+emcmake cmake -B web-build
+cmake --build web-build -j 8
+emrun --browser_args="--headless=new" --browser chrome --kill_exit web-build/Example.html
+emrun --browser_args="--headless=new" --browser chrome --kill_exit web-build/Test.html
+
