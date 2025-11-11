@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.27)
 
-project(Test)
+project(test_asserter VERSION 1.0.0 LANGUAGES CXX)
 enable_testing()
 
 add_executable(Example src/check_assert.cpp)

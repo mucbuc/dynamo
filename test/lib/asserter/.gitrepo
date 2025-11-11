@@ -6,7 +6,7 @@
 [subrepo]
 	remote = git@github.com:mucbuc/asserter.git
 	branch = master
-	commit = f8d9b51f71dd64bbefb9dac8abaae3420820fe50
-	parent = 709f1d24f830c51ee36b21afe61308b8a00ef80f
+	commit = 722fbce5e9fd2dd3ba402b4bf3cdbcc0fa3635bb
+	parent = dec8dd1ef0de6b3dde081efe600c7ce5097316b9
 	method = merge
 	cmdver = 0.4.9
