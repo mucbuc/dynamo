@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = git@github.com:mucbuc/asserter.git
+	branch = master
+	commit = f8d9b51f71dd64bbefb9dac8abaae3420820fe50
+	parent = 709f1d24f830c51ee36b21afe61308b8a00ef80f
+	method = merge
+	cmdver = 0.4.9

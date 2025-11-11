@@ -1,0 +1,5 @@
+.DS_Store
+test/build/
+test/web-build/
+test/Testing
+test/result.json
