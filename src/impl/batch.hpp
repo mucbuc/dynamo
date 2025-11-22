@@ -4,9 +4,9 @@
 #include <memory>
 #include <vector>
 
-#include <lib/circuit/src/impl/circuit_host.hpp>
-#include <lib/circuit/src/impl/queue.hpp>
-#include <lib/circuit/src/impl/stack.hpp>
+#include <circuit/src/impl/circuit_host.hpp>
+#include <circuit/src/impl/queue.hpp>
+#include <circuit/src/impl/stack.hpp>
 
 #include "../interface.hpp"
 

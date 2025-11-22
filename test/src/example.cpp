@@ -1,6 +1,6 @@
-#include <lib/asserter/src/asserter.hpp>
-#include <lib/dynamo/src/impl/batch.hpp>
-#include <lib/dynamo/src/interface.hpp>
+#include <asserter/src/asserter.hpp>
+#include <dynamo/src/impl/batch.hpp>
+#include <dynamo/src/interface.hpp>
 
 int main()
 {

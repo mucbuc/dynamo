@@ -1,8 +1,8 @@
 #include <functional>
 #include <iostream>
 
-#include <lib/asserter/src/test.hpp>
-#include <lib/dynamo/src/impl/batch.hpp>
+#include <asserter/src/test.hpp>
+#include <dynamo/src/impl/batch.hpp>
 
 #include "batch.hpp"
 

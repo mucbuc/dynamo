@@ -1,4 +1,4 @@
-#include <lib/circuit/src/impl/queue.hpp>
+#include <circuit/src/impl/queue.hpp>
 
 using namespace om636::control;
 using namespace om636;

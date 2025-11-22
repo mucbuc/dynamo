@@ -27,7 +27,7 @@ if (EMSCRIPTEN)
     )
 endif()
 
-target_include_directories(Example SYSTEM PUBLIC ${CMAKE_SOURCE_DIR})
+target_include_directories(Example SYSTEM PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
 add_executable(Test src/main.cpp)
 
@@ -50,5 +50,5 @@ if (EMSCRIPTEN)
     )
 endif()
 
-target_include_directories(Test SYSTEM PUBLIC ${CMAKE_SOURCE_DIR})
+target_include_directories(Test SYSTEM PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
